@@ -4,6 +4,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 from evogym import is_connected, has_actuator
 import json
+import os
+from datetime import datetime
 
 class Network(nn.Module):
     def __init__(self, n_in, h_size, n_out):
@@ -100,10 +102,6 @@ def generate_valid_robot_shape(width=5, height=5):
     while not (is_connected(body) and has_actuator(body)):
         body = np.random.randint(0, 5, size=(width, height))
     return body
-
-import json
-import os
-from datetime import datetime
 
 def save_solution(a, cfg, base_dir="results"):
     save_cfg = {}
