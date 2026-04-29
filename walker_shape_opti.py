@@ -1,3 +1,4 @@
+import argparse
 import copy
 import contextlib
 from datetime import datetime
@@ -75,8 +76,13 @@ configure_quiet_libraries()
 # Hyperparamètres globaux
 # ====================================================
 
-N_ROBOTS = 100       # Nombre de robots à générer
-M_GENERATIONS = 100  # Générations d'ES par robot
+N_ROBOTS = 5       # Nombre de robots à générer
+M_GENERATIONS = 30  # Générations d'ES par robot
+MAX_STEP = 200     # Nombre maximum de steps par simulation
+
+# Types EvoGym :
+# 0 = vide, 1 = rigide, 2 = mou, 3 = actuateur horizontal, 4 = actuateur vertical
+BLOCK_PROBABILITIES = [0.2, 0.2, 0.2, 0.2, 0.2]
 
 # ====================================================
 # Neural Network
@@ -149,10 +155,40 @@ class Agent:
 # Environment & Evaluation
 # ====================================================
 
-def generate_valid_robot_shape(width=5, height=5):
-    body = np.random.randint(0, 5, size=(width, height))
+def normalize_block_probabilities(block_probs=None):
+    if block_probs is None:
+        block_probs = BLOCK_PROBABILITIES
+
+    if isinstance(block_probs, dict):
+        probs = np.array([block_probs.get(block_type, 0.0) for block_type in range(5)], dtype=float)
+    else:
+        probs = np.array(block_probs, dtype=float)
+
+    if probs.shape != (5,):
+        raise ValueError("block_probs must contain exactly 5 probabilities, one for each block type 0..4")
+    if np.any(probs < 0):
+        raise ValueError("block_probs cannot contain negative probabilities")
+    if probs.sum() <= 0:
+        raise ValueError("block_probs must contain at least one positive probability")
+    if probs[3] + probs[4] <= 0:
+        raise ValueError("block_probs must allow at least one actuator type: 3 or 4")
+
+    return probs / probs.sum()
+
+
+def generate_valid_robot_shape(width=5, height=5, block_probs=None, max_attempts=10000):
+    block_types = np.arange(5)
+    probabilities = normalize_block_probabilities(block_probs)
+
+    body = np.random.choice(block_types, size=(width, height), p=probabilities)
+    attempts = 1
     while not (is_connected(body) and has_actuator(body)):
-        body = np.random.randint(0, 5, size=(width, height))
+        if attempts >= max_attempts:
+            raise RuntimeError(
+                "Could not generate a valid robot shape. Try increasing actuator/non-empty block probabilities."
+            )
+        body = np.random.choice(block_types, size=(width, height), p=probabilities)
+        attempts += 1
     return body
 
 def make_env(env_name, robot=None, seed=None):
@@ -292,6 +328,7 @@ def run_population_search(
     n_robots=N_ROBOTS,
     m_generations=M_GENERATIONS,
     es_config=None,
+    block_probs=None,
 ):
     date_str = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     run_dir = os.path.join("results", f"{env_name}_{date_str}")
@@ -310,6 +347,9 @@ def run_population_search(
 
     all_results = []
 
+    print(default_es)
+    print(block_probs)
+
     print(f"\n{'='*50}")
     print(f"Population search: {n_robots} robots × {m_generations} generations")
     print(f"Results → {run_dir}")
@@ -317,7 +357,7 @@ def run_population_search(
 
     for i in tqdm(range(n_robots), desc="Robots", position=0):
         # 1. Generate a valid random robot
-        robot = generate_valid_robot_shape()
+        robot = generate_valid_robot_shape(block_probs=block_probs)
 
         # 2. Build ES config for this robot
         config = {
@@ -357,17 +397,53 @@ def run_population_search(
 # Entry point
 # ====================================================
 
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Run EvoGym Walker evolution."
+    )
+    parser.add_argument(
+        "n_robots",
+        nargs="?",
+        type=int,
+        default=N_ROBOTS,
+        help=f"Nombre de robots à générer. Défaut: {N_ROBOTS}",
+    )
+    parser.add_argument(
+        "m_generation",
+        nargs="?",
+        type=int,
+        default=M_GENERATIONS,
+        help=f"Nombre de générations ES par robot. Défaut: {M_GENERATIONS}",
+    )
+    parser.add_argument(
+        "max_step",
+        nargs="?",
+        type=int,
+        default=MAX_STEP,
+        help=f"Nombre maximum de steps par simulation. Défaut: {MAX_STEP}",
+    )
+    args = parser.parse_args()
+
+    for name in ("n_robots", "m_generation", "max_step"):
+        if getattr(args, name) <= 0:
+            parser.error(f"{name} must be a positive integer")
+
+    return args
+
+
 if __name__ == "__main__":
+    args = parse_args()
     results = run_population_search(
         env_name="Walker-v0",
-        n_robots=N_ROBOTS,
-        m_generations=M_GENERATIONS,
+        n_robots=args.n_robots,
+        m_generations=args.m_generation,
+        block_probs=[0.2, 0.1, 0.1, 0.3, 0.3],
         es_config={
             "lambda": 10,
             "mu": 5,
             "sigma": 0.1,
             "lr": 1.0,
-            "max_steps": 100,
+            "max_steps": args.max_step,
             "n_workers": os.cpu_count(),
         },
     )
