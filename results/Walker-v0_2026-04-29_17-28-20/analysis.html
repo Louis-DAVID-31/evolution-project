@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Walker-v0_2026-04-29_17-28-20</title>
+    <style>
+        :root {
+            color-scheme: light;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f5f7f8;
+            color: #172026;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #f5f7f8;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 18px 28px;
+            border-bottom: 1px solid #d8dee3;
+            background: rgba(245, 247, 248, 0.94);
+            backdrop-filter: blur(8px);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0;
+        }
+
+        .summary {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 8px;
+            font-size: 13px;
+            color: #42515c;
+        }
+
+        .summary span {
+            padding: 5px 8px;
+            border: 1px solid #d8dee3;
+            background: #ffffff;
+        }
+
+        main {
+            padding: 22px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
+        }
+
+        .robot-card {
+            overflow: hidden;
+            border: 1px solid #d8dee3;
+            border-radius: 8px;
+            background: #ffffff;
+        }
+
+        .media-wrap {
+            display: grid;
+            place-items: center;
+            aspect-ratio: 4 / 3;
+            background: #eef2f4;
+        }
+
+        .media-wrap img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .meta {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 3px 8px;
+            padding: 9px 10px 10px;
+            font-size: 13px;
+            line-height: 1.25;
+        }
+
+        .rank {
+            grid-row: span 2;
+            align-self: center;
+            font-weight: 800;
+            color: #0f766e;
+        }
+
+        .fitness {
+            font-weight: 700;
+            color: #172026;
+        }
+
+        .file {
+            overflow-wrap: anywhere;
+            color: #64717b;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Walker-v0_2026-04-29_17-28-20</h1>
+        <div class="summary">
+            <span>47 robots</span>
+            <span>best 0.6658</span>
+            <span>worst 0.0616</span>
+        </div>
+    </header>
+    <main>
+        <section class="grid">
+            
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.67.gif" alt="Walker-v0 robot 1" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#1</span>
+                <span class="fitness">fitness 0.6658</span>
+                <span class="file">0.67.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.63.gif" alt="Walker-v0 robot 2" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#2</span>
+                <span class="fitness">fitness 0.6289</span>
+                <span class="file">0.63.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.60.gif" alt="Walker-v0 robot 3" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#3</span>
+                <span class="fitness">fitness 0.6007</span>
+                <span class="file">0.60.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.58.gif" alt="Walker-v0 robot 4" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#4</span>
+                <span class="fitness">fitness 0.5790</span>
+                <span class="file">0.58.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.55.gif" alt="Walker-v0 robot 5" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#5</span>
+                <span class="fitness">fitness 0.5468</span>
+                <span class="file">0.55.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.52.gif" alt="Walker-v0 robot 6" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#6</span>
+                <span class="fitness">fitness 0.5213</span>
+                <span class="file">0.52.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.51.gif" alt="Walker-v0 robot 7" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#7</span>
+                <span class="fitness">fitness 0.5054</span>
+                <span class="file">0.51.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.50.gif" alt="Walker-v0 robot 8" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#8</span>
+                <span class="fitness">fitness 0.5023</span>
+                <span class="file">0.50.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.49.gif" alt="Walker-v0 robot 9" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#9</span>
+                <span class="fitness">fitness 0.4862</span>
+                <span class="file">0.49.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.48.gif" alt="Walker-v0 robot 10" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#10</span>
+                <span class="fitness">fitness 0.4760</span>
+                <span class="file">0.48.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.47.gif" alt="Walker-v0 robot 11" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#11</span>
+                <span class="fitness">fitness 0.4656</span>
+                <span class="file">0.47.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.46.gif" alt="Walker-v0 robot 12" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#12</span>
+                <span class="fitness">fitness 0.4587</span>
+                <span class="file">0.46.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.44.gif" alt="Walker-v0 robot 13" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#13</span>
+                <span class="fitness">fitness 0.4449</span>
+                <span class="file">0.44.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.43.gif" alt="Walker-v0 robot 14" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#14</span>
+                <span class="fitness">fitness 0.4284</span>
+                <span class="file">0.43.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.42.gif" alt="Walker-v0 robot 15" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#15</span>
+                <span class="fitness">fitness 0.4158</span>
+                <span class="file">0.42.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.41.gif" alt="Walker-v0 robot 16" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#16</span>
+                <span class="fitness">fitness 0.4074</span>
+                <span class="file">0.41.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.40.gif" alt="Walker-v0 robot 17" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#17</span>
+                <span class="fitness">fitness 0.3966</span>
+                <span class="file">0.40.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.39.gif" alt="Walker-v0 robot 18" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#18</span>
+                <span class="fitness">fitness 0.3933</span>
+                <span class="file">0.39.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.38.gif" alt="Walker-v0 robot 19" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#19</span>
+                <span class="fitness">fitness 0.3826</span>
+                <span class="file">0.38.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.37.gif" alt="Walker-v0 robot 20" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#20</span>
+                <span class="fitness">fitness 0.3658</span>
+                <span class="file">0.37.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.36.gif" alt="Walker-v0 robot 21" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#21</span>
+                <span class="fitness">fitness 0.3608</span>
+                <span class="file">0.36.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.35.gif" alt="Walker-v0 robot 22" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#22</span>
+                <span class="fitness">fitness 0.3483</span>
+                <span class="file">0.35.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.34.gif" alt="Walker-v0 robot 23" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#23</span>
+                <span class="fitness">fitness 0.3435</span>
+                <span class="file">0.34.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.33.gif" alt="Walker-v0 robot 24" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#24</span>
+                <span class="fitness">fitness 0.3290</span>
+                <span class="file">0.33.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.32.gif" alt="Walker-v0 robot 25" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#25</span>
+                <span class="fitness">fitness 0.3249</span>
+                <span class="file">0.32.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.31.gif" alt="Walker-v0 robot 26" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#26</span>
+                <span class="fitness">fitness 0.3137</span>
+                <span class="file">0.31.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.30.gif" alt="Walker-v0 robot 27" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#27</span>
+                <span class="fitness">fitness 0.2996</span>
+                <span class="file">0.30.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.29.gif" alt="Walker-v0 robot 28" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#28</span>
+                <span class="fitness">fitness 0.2943</span>
+                <span class="file">0.29.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.28.gif" alt="Walker-v0 robot 29" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#29</span>
+                <span class="fitness">fitness 0.2842</span>
+                <span class="file">0.28.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.27.gif" alt="Walker-v0 robot 30" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#30</span>
+                <span class="fitness">fitness 0.2708</span>
+                <span class="file">0.27.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.26.gif" alt="Walker-v0 robot 31" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#31</span>
+                <span class="fitness">fitness 0.2565</span>
+                <span class="file">0.26.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.25.gif" alt="Walker-v0 robot 32" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#32</span>
+                <span class="fitness">fitness 0.2526</span>
+                <span class="file">0.25.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.24.gif" alt="Walker-v0 robot 33" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#33</span>
+                <span class="fitness">fitness 0.2410</span>
+                <span class="file">0.24.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.23.gif" alt="Walker-v0 robot 34" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#34</span>
+                <span class="fitness">fitness 0.2319</span>
+                <span class="file">0.23.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.21.gif" alt="Walker-v0 robot 35" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#35</span>
+                <span class="fitness">fitness 0.2146</span>
+                <span class="file">0.21.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.20.gif" alt="Walker-v0 robot 36" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#36</span>
+                <span class="fitness">fitness 0.2037</span>
+                <span class="file">0.20.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.19.gif" alt="Walker-v0 robot 37" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#37</span>
+                <span class="fitness">fitness 0.1939</span>
+                <span class="file">0.19.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.18.gif" alt="Walker-v0 robot 38" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#38</span>
+                <span class="fitness">fitness 0.1846</span>
+                <span class="file">0.18.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.17.gif" alt="Walker-v0 robot 39" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#39</span>
+                <span class="fitness">fitness 0.1687</span>
+                <span class="file">0.17.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.16.gif" alt="Walker-v0 robot 40" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#40</span>
+                <span class="fitness">fitness 0.1616</span>
+                <span class="file">0.16.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.15.gif" alt="Walker-v0 robot 41" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#41</span>
+                <span class="fitness">fitness 0.1529</span>
+                <span class="file">0.15.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.14.gif" alt="Walker-v0 robot 42" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#42</span>
+                <span class="fitness">fitness 0.1414</span>
+                <span class="file">0.14.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.11.gif" alt="Walker-v0 robot 43" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#43</span>
+                <span class="fitness">fitness 0.1098</span>
+                <span class="file">0.11.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.10.gif" alt="Walker-v0 robot 44" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#44</span>
+                <span class="fitness">fitness 0.1020</span>
+                <span class="file">0.10.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.09.gif" alt="Walker-v0 robot 45" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#45</span>
+                <span class="fitness">fitness 0.0872</span>
+                <span class="file">0.09.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.07.gif" alt="Walker-v0 robot 46" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#46</span>
+                <span class="fitness">fitness 0.0704</span>
+                <span class="file">0.07.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Walker-v0_0.06.gif" alt="Walker-v0 robot 47" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#47</span>
+                <span class="fitness">fitness 0.0616</span>
+                <span class="file">0.06.json</span>
+            </div>
+        </article>
+        
+        </section>
+    </main>
+    <script>
+        document.querySelectorAll("img").forEach((img) => {
+            img.addEventListener("error", () => {
+                img.closest(".robot-card").classList.add("missing-gif");
+            });
+        });
+    </script>
+</body>
+</html>

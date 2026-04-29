@@ -223,7 +223,7 @@ def create_gif(solution_path):
     if not frames:
         raise RuntimeError("No frame was rendered; GIF was not created.")
 
-    imageio.mimsave(output_path, frames, fps=FPS)
+    imageio.mimsave(output_path, frames, fps=FPS, loop=0)
     print(f"Fitness: {reward:.4f}")
     print(f"GIF saved to: {output_path}")
     return output_path

@@ -75,8 +75,8 @@ configure_quiet_libraries()
 # Hyperparamètres globaux
 # ====================================================
 
-N_ROBOTS = 5       # Nombre de robots à générer
-M_GENERATIONS = 5  # Générations d'ES par robot
+N_ROBOTS = 100       # Nombre de robots à générer
+M_GENERATIONS = 100  # Générations d'ES par robot
 
 # ====================================================
 # Neural Network
@@ -275,7 +275,7 @@ def save_solution(agent, cfg, run_dir):
         "genes": agent.genes.tolist(),
         "fitness": float(agent.fitness),
     }
-    fitness_str = f"{save_cfg['fitness']:.2f}"
+    fitness_str = f"{save_cfg['fitness']:.5f}"
     filename = f"{fitness_str}.json"
     full_path = os.path.join(run_dir, filename)
     with open(full_path, "w") as f:
@@ -367,7 +367,7 @@ if __name__ == "__main__":
             "mu": 5,
             "sigma": 0.1,
             "lr": 1.0,
-            "max_steps": 500,
+            "max_steps": 100,
             "n_workers": os.cpu_count(),
         },
     )
