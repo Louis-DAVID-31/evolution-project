@@ -347,9 +347,6 @@ def run_population_search(
 
     all_results = []
 
-    print(default_es)
-    print(block_probs)
-
     print(f"\n{'='*50}")
     print(f"Population search: {n_robots} robots × {m_generations} generations")
     print(f"Results → {run_dir}")
@@ -437,7 +434,7 @@ if __name__ == "__main__":
         env_name="Walker-v0",
         n_robots=args.n_robots,
         m_generations=args.m_generation,
-        block_probs=[0.2, 0.1, 0.1, 0.3, 0.3],
+        block_probs=[0.2, 0.05, 0.05, 0.4, 0.3],
         es_config={
             "lambda": 10,
             "mu": 5,

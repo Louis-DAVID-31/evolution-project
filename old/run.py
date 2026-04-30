@@ -281,9 +281,9 @@ config = {
     "generations": 100, 
     "lambda": 10,  # Population size
     "mu": 5,       # Parents pop size
-    "sigma": 2,  # Mutation std
-    "lr": 5,       # Learning rate
-    "max_steps": 500,
+    "sigma": 0.1,  # Mutation std
+    "lr": 1,       # Learning rate
+    "max_steps": 250,
     "n_workers": os.cpu_count(),  # Number of parallel workers
 }
 

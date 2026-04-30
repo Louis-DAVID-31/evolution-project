@@ -2,6 +2,7 @@ import argparse
 import contextlib
 import json
 import logging
+from multiprocessing import Pool
 import os
 from pathlib import Path
 import re
@@ -156,7 +157,7 @@ def make_env(env_name, robot):
     return env
 
 
-def evaluate_and_record(agent, env, max_steps=MAX_STEPS):
+def evaluate_and_record(agent, env, max_steps=MAX_STEPS, show_progress=True):
     with silence_external_output():
         obs, _ = env.reset()
 
@@ -167,7 +168,7 @@ def evaluate_and_record(agent, env, max_steps=MAX_STEPS):
     truncated = False
     steps = 0
 
-    progress = tqdm(total=max_steps, desc="Simulation", unit="step")
+    progress = tqdm(total=max_steps, desc="Simulation", unit="step") if show_progress else None
     while not (done or truncated) and steps < max_steps:
         with silence_external_output():
             frame = env.render()
@@ -180,9 +181,11 @@ def evaluate_and_record(agent, env, max_steps=MAX_STEPS):
 
         reward += step_reward
         steps += 1
-        progress.update(1)
+        if progress is not None:
+            progress.update(1)
 
-    progress.close()
+    if progress is not None:
+        progress.close()
     return reward, frames
 
 
@@ -205,7 +208,7 @@ def default_gif_path(solution_path, config):
     return solution_path.with_name(f"{env_name}_{stem}.gif")
 
 
-def create_gif(solution_path):
+def create_gif(solution_path, show_progress=True, verbose=True):
     configure_quiet_libraries()
 
     solution_path = Path(solution_path).expanduser()
@@ -215,7 +218,7 @@ def create_gif(solution_path):
 
     env = make_env(config["env_name"], config["robot"])
     try:
-        reward, frames = evaluate_and_record(agent, env)
+        reward, frames = evaluate_and_record(agent, env, show_progress=show_progress)
     finally:
         with silence_external_output():
             env.close()
@@ -224,9 +227,37 @@ def create_gif(solution_path):
         raise RuntimeError("No frame was rendered; GIF was not created.")
 
     imageio.mimsave(output_path, frames, fps=FPS, loop=0)
-    print(f"Fitness: {reward:.4f}")
-    print(f"GIF saved to: {output_path}")
+    if verbose:
+        print(f"Fitness: {reward:.4f}")
+        print(f"GIF saved to: {output_path}")
     return output_path
+
+
+def _create_gif_worker(solution_path):
+    output_path = create_gif(solution_path, show_progress=False, verbose=False)
+    return str(output_path)
+
+
+def create_gifs_parallel(solution_paths, workers=None):
+    solution_paths = [Path(path) for path in solution_paths]
+    if not solution_paths:
+        return []
+
+    worker_count = workers or os.cpu_count() or 1
+    worker_count = max(1, min(worker_count, len(solution_paths)))
+
+    if worker_count == 1:
+        created = []
+        for solution_path in tqdm(solution_paths, desc="GIFs", unit="gif"):
+            created.append(create_gif(solution_path, show_progress=False, verbose=False))
+        return created
+
+    created = []
+    with Pool(processes=worker_count) as pool:
+        iterator = pool.imap_unordered(_create_gif_worker, solution_paths)
+        for output_path in tqdm(iterator, total=len(solution_paths), desc="GIFs", unit="gif"):
+            created.append(Path(output_path))
+    return created
 
 
 def find_pending_solutions(results_dir):
@@ -247,7 +278,7 @@ def find_pending_solutions(results_dir):
     return pending, skipped
 
 
-def create_all_missing_gifs():
+def create_all_missing_gifs(workers=None):
     results_dir = Path(__file__).resolve().parent / "results"
     if not results_dir.exists():
         raise FileNotFoundError(f"Results directory not found: {results_dir}")
@@ -260,10 +291,7 @@ def create_all_missing_gifs():
         print("All GIFs are already generated.")
         return []
 
-    created = []
-    for solution_path in tqdm(pending, desc="Solutions", unit="file"):
-        tqdm.write(f"Generating GIF for: {solution_path}")
-        created.append(create_gif(solution_path))
+    created = create_gifs_parallel(pending, workers=workers)
 
     print(f"Generated {len(created)} GIF(s).")
     return created
@@ -279,13 +307,21 @@ def parse_args():
         action="store_true",
         help="Generate GIFs for every solution JSON in results/ that does not have one yet.",
     )
+    parser.add_argument(
+        "--workers",
+        type=int,
+        default=None,
+        help="Number of parallel GIF workers for --all. Default: os.cpu_count().",
+    )
     return parser.parse_args()
 
 
 if __name__ == "__main__":
     args = parse_args()
+    if args.workers is not None and args.workers <= 0:
+        raise SystemExit("--workers must be a positive integer")
     if args.all:
-        create_all_missing_gifs()
+        create_all_missing_gifs(workers=args.workers)
     elif args.solution_file:
         create_gif(args.solution_file)
     else:

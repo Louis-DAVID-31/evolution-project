@@ -2,9 +2,7 @@ import argparse
 from pathlib import Path
 import webbrowser
 
-from tqdm import tqdm
-
-from gif import create_gif, default_gif_path, load_solution
+from gif import create_gifs_parallel, default_gif_path, load_solution
 
 
 HTML_FILENAME = "analysis.html"
@@ -30,13 +28,15 @@ def load_robot_results(results_dir):
     return robots
 
 
-def ensure_gifs_exist(robots):
+def ensure_gifs_exist(robots, workers=None):
     missing = [robot for robot in robots if not robot["gif_path"].exists()]
     if not missing:
         return
 
-    for robot in tqdm(missing, desc="Missing GIFs", unit="gif"):
-        robot["gif_path"] = create_gif(robot["solution_path"])
+    create_gifs_parallel(
+        [robot["solution_path"] for robot in missing],
+        workers=workers,
+    )
 
 
 def html_escape(value):
@@ -230,7 +230,7 @@ def write_analysis_page(results_dir, robots):
     return html_path
 
 
-def analyze_generation(folder, open_page=True):
+def analyze_generation(folder, open_page=True, workers=None):
     results_dir = Path(folder).expanduser()
     if not results_dir.is_absolute():
         results_dir = Path.cwd() / results_dir
@@ -243,7 +243,7 @@ def analyze_generation(folder, open_page=True):
     if not robots:
         raise RuntimeError(f"No solution JSON found in: {results_dir}")
 
-    ensure_gifs_exist(robots)
+    ensure_gifs_exist(robots, workers=workers)
     html_path = write_analysis_page(results_dir, robots)
 
     print(f"Robots: {len(robots)}")
@@ -262,9 +262,17 @@ def parse_args():
     )
     parser.add_argument("folder", help='Generation folder, e.g. "results/Walker-v0_2026-04-29_17-28-20".')
     parser.add_argument("--no-open", action="store_true", help="Create the page without opening it.")
+    parser.add_argument(
+        "--workers",
+        type=int,
+        default=None,
+        help="Number of parallel GIF workers when missing GIFs must be generated.",
+    )
     return parser.parse_args()
 
 
 if __name__ == "__main__":
     args = parse_args()
-    analyze_generation(args.folder, open_page=not args.no_open)
+    if args.workers is not None and args.workers <= 0:
+        raise SystemExit("--workers must be a positive integer")
+    analyze_generation(args.folder, open_page=not args.no_open, workers=args.workers)
