@@ -45,7 +45,7 @@ def save_solution_old_style(agent, cfg, base_dir="results"):
     return output_path
 
 
-def optimize_fixed_robot(solution_file, generations, max_steps, workers=None):
+def optimize_fixed_robot(solution_file, generations, max_steps, lambda_, workers=None):
     robot_cfg = load_robot_shape(solution_file)
     workers = workers or os.cpu_count()
 
@@ -53,8 +53,8 @@ def optimize_fixed_robot(solution_file, generations, max_steps, workers=None):
         "env_name": robot_cfg["env_name"],
         "robot": robot_cfg["robot"],
         "generations": generations,
-        "lambda": 10,
-        "mu": 5,
+        "lambda": lambda_,
+        "mu": min(5, lambda_),
         "sigma": 0.1,
         "lr": 1.0,
         "max_steps": max_steps,
@@ -65,6 +65,8 @@ def optimize_fixed_robot(solution_file, generations, max_steps, workers=None):
     print(f"Environment: {es_config['env_name']}")
     print(f"Generations: {generations}")
     print(f"Max steps: {max_steps}")
+    print(f"Lambda: {lambda_}")
+    print(f"Mu: {es_config['mu']}")
     print(f"Workers: {workers}")
 
     elite = ES(es_config)
@@ -83,6 +85,7 @@ def parse_args():
     parser.add_argument("solution_file", help="Path to a result JSON containing env_name and robot.")
     parser.add_argument("generations", type=int, help="Number of ES generations.")
     parser.add_argument("max_steps", type=int, help="Maximum number of simulation steps per evaluation.")
+    parser.add_argument("lambda_", type=int, metavar="lambda", help="ES population size per generation.")
     parser.add_argument(
         "--workers",
         type=int,
@@ -98,6 +101,8 @@ if __name__ == "__main__":
         raise SystemExit("generations must be a positive integer")
     if args.max_steps <= 0:
         raise SystemExit("max_steps must be a positive integer")
+    if args.lambda_ <= 0:
+        raise SystemExit("lambda must be a positive integer")
     if args.workers is not None and args.workers <= 0:
         raise SystemExit("--workers must be a positive integer")
 
@@ -105,5 +110,6 @@ if __name__ == "__main__":
         args.solution_file,
         generations=args.generations,
         max_steps=args.max_steps,
+        lambda_=args.lambda_,
         workers=args.workers,
     )
