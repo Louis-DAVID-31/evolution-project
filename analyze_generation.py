@@ -230,7 +230,7 @@ def write_analysis_page(results_dir, robots):
     return html_path
 
 
-def analyze_generation(folder, open_page=True, workers=None):
+def analyze_generation(folder, open_page=True, workers=None, best_count=None):
     results_dir = Path(folder).expanduser()
     if not results_dir.is_absolute():
         results_dir = Path.cwd() / results_dir
@@ -243,10 +243,14 @@ def analyze_generation(folder, open_page=True, workers=None):
     if not robots:
         raise RuntimeError(f"No solution JSON found in: {results_dir}")
 
+    total_robots = len(robots)
+    if best_count is not None:
+        robots = robots[:best_count]
+
     ensure_gifs_exist(robots, workers=workers)
     html_path = write_analysis_page(results_dir, robots)
 
-    print(f"Robots: {len(robots)}")
+    print(f"Robots: {len(robots)}/{total_robots}")
     print(f"Best fitness: {robots[0]['fitness']:.4f}")
     print(f"Page saved to: {html_path}")
 
@@ -261,6 +265,7 @@ def parse_args():
         description="Generate one HTML page with every robot GIF in a generation folder."
     )
     parser.add_argument("folder", help='Generation folder, e.g. "results/Walker-v0_2026-04-29_17-28-20".')
+    parser.add_argument("--best", type=int, default=None, help="Only render and generate GIFs for the N best robots.")
     parser.add_argument("--no-open", action="store_true", help="Create the page without opening it.")
     parser.add_argument(
         "--workers",
@@ -273,6 +278,13 @@ def parse_args():
 
 if __name__ == "__main__":
     args = parse_args()
+    if args.best is not None and args.best <= 0:
+        raise SystemExit("--best must be a positive integer")
     if args.workers is not None and args.workers <= 0:
         raise SystemExit("--workers must be a positive integer")
-    analyze_generation(args.folder, open_page=not args.no_open, workers=args.workers)
+    analyze_generation(
+        args.folder,
+        open_page=not args.no_open,
+        workers=args.workers,
+        best_count=args.best,
+    )
