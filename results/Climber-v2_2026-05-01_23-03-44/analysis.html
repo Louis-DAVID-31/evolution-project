@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Climber-v2_2026-05-01_23-03-44</title>
+    <style>
+        :root {
+            color-scheme: light;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f5f7f8;
+            color: #172026;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #f5f7f8;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 18px 28px;
+            border-bottom: 1px solid #d8dee3;
+            background: rgba(245, 247, 248, 0.94);
+            backdrop-filter: blur(8px);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0;
+        }
+
+        .summary {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 8px;
+            font-size: 13px;
+            color: #42515c;
+        }
+
+        .summary span {
+            padding: 5px 8px;
+            border: 1px solid #d8dee3;
+            background: #ffffff;
+        }
+
+        main {
+            padding: 22px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
+        }
+
+        .robot-card {
+            overflow: hidden;
+            border: 1px solid #d8dee3;
+            border-radius: 8px;
+            background: #ffffff;
+        }
+
+        .media-wrap {
+            display: grid;
+            place-items: center;
+            aspect-ratio: 4 / 3;
+            background: #eef2f4;
+        }
+
+        .media-wrap img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .meta {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 3px 8px;
+            padding: 9px 10px 10px;
+            font-size: 13px;
+            line-height: 1.25;
+        }
+
+        .rank {
+            grid-row: span 2;
+            align-self: center;
+            font-weight: 800;
+            color: #0f766e;
+        }
+
+        .fitness {
+            font-weight: 700;
+            color: #172026;
+        }
+
+        .file {
+            overflow-wrap: anywhere;
+            color: #64717b;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Climber-v2_2026-05-01_23-03-44</h1>
+        <div class="summary">
+            <span>15 robots</span>
+            <span>best 0.4655</span>
+            <span>worst 0.3373</span>
+        </div>
+    </header>
+    <main>
+        <section class="grid">
+            
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Climber-v2_0.46552_0.47.gif" alt="Climber-v2 robot 1" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#1</span>
+                <span class="fitness">fitness 0.4655</span>
+                <span class="file">0.46552.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Climber-v2_0.46419_0.46.gif" alt="Climber-v2 robot 2" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#2</span>
+                <span class="fitness">fitness 0.4642</span>
+                <span class="file">0.46419.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Climber-v2_0.45761_0.46.gif" alt="Climber-v2 robot 3" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#3</span>
+                <span class="fitness">fitness 0.4576</span>
+                <span class="file">0.45761.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Climber-v2_0.44154_0.44.gif" alt="Climber-v2 robot 4" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#4</span>
+                <span class="fitness">fitness 0.4415</span>
+                <span class="file">0.44154.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Climber-v2_0.43021_0.43.gif" alt="Climber-v2 robot 5" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#5</span>
+                <span class="fitness">fitness 0.4302</span>
+                <span class="file">0.43021.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Climber-v2_0.42604_0.43.gif" alt="Climber-v2 robot 6" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#6</span>
+                <span class="fitness">fitness 0.4260</span>
+                <span class="file">0.42604.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Climber-v2_0.39577_0.40.gif" alt="Climber-v2 robot 7" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#7</span>
+                <span class="fitness">fitness 0.3958</span>
+                <span class="file">0.39577.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Climber-v2_0.38607_0.39.gif" alt="Climber-v2 robot 8" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#8</span>
+                <span class="fitness">fitness 0.3861</span>
+                <span class="file">0.38607.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Climber-v2_0.38603_0.39.gif" alt="Climber-v2 robot 9" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#9</span>
+                <span class="fitness">fitness 0.3860</span>
+                <span class="file">0.38603.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Climber-v2_0.37471_0.37.gif" alt="Climber-v2 robot 10" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#10</span>
+                <span class="fitness">fitness 0.3747</span>
+                <span class="file">0.37471.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Climber-v2_0.35599_0.36.gif" alt="Climber-v2 robot 11" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#11</span>
+                <span class="fitness">fitness 0.3560</span>
+                <span class="file">0.35599.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Climber-v2_0.35289_0.35.gif" alt="Climber-v2 robot 12" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#12</span>
+                <span class="fitness">fitness 0.3529</span>
+                <span class="file">0.35289.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Climber-v2_0.34776_0.35.gif" alt="Climber-v2 robot 13" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#13</span>
+                <span class="fitness">fitness 0.3478</span>
+                <span class="file">0.34776.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Climber-v2_0.34302_0.34.gif" alt="Climber-v2 robot 14" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#14</span>
+                <span class="fitness">fitness 0.3430</span>
+                <span class="file">0.34302.json</span>
+            </div>
+        </article>
+        
+
+        <article class="robot-card">
+            <div class="media-wrap">
+                <img src="Climber-v2_0.33726_0.34.gif" alt="Climber-v2 robot 15" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="rank">#15</span>
+                <span class="fitness">fitness 0.3373</span>
+                <span class="file">0.33726.json</span>
+            </div>
+        </article>
+        
+        </section>
+    </main>
+    <script>
+        document.querySelectorAll("img").forEach((img) => {
+            img.addEventListener("error", () => {
+                img.closest(".robot-card").classList.add("missing-gif");
+            });
+        });
+    </script>
+</body>
+</html>

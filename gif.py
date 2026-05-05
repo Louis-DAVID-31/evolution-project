@@ -17,7 +17,7 @@ warnings.filterwarnings(
 
 
 MAX_STEPS = 500
-FPS = 100.0
+FPS = 60
 
 
 def _flush_standard_streams():

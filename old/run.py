@@ -109,11 +109,11 @@ class Agent:
 
 
 base = np.array([
-    [3, 3, 3, 3, 3],
-    [3, 3, 3, 0, 3],
-    [3, 3, 0, 3, 3],
-    [3, 3, 0, 3, 3],
-    [3, 3, 0, 3, 3]
+    [4, 4, 4, 4, 4],
+    [4, 4, 4, 4, 4],
+    [4, 4, 4, 4, 4],
+    [4, 4, 4, 4, 4],
+    [4, 4, 4, 4, 4]
     ])
 
 def make_env(env_name, robot=None, seed=None, **kwargs):
@@ -262,28 +262,28 @@ def ES(config):
 # ====================================================
 
 walker = np.array([
-    [3, 3, 3, 3, 3],
-    [3, 3, 3, 0, 3],
-    [3, 3, 0, 3, 3],
-    [3, 3, 0, 3, 3],
-    [3, 3, 0, 3, 3]
+    [0, 0, 4, 4, 4],
+    [0, 0, 4, 4, 4],
+    [0, 0, 4, 4, 4],
+    [0, 0, 4, 4, 4],
+    [0, 0, 4, 4, 4]
     ])
 
-env_name = 'Walker-v0'
+env_name = 'Climber-v2'
 robot = walker
 
 cfg = get_cfg(env_name, robot)
 a = Agent(Network, cfg)
 
 config = {
-    "env_name": "Walker-v0",
+    "env_name": "Climber-v2",
     "robot": walker,
     "generations": 100, 
     "lambda": 10,  # Population size
     "mu": 5,       # Parents pop size
     "sigma": 0.1,  # Mutation std
     "lr": 1,       # Learning rate
-    "max_steps": 250,
+    "max_steps": 500,
     "n_workers": os.cpu_count(),  # Number of parallel workers
 }
 
