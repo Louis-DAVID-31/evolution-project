@@ -1,5 +1,6 @@
 import argparse
 from pathlib import Path
+import random
 import webbrowser
 
 from gif import create_gifs_parallel, default_gif_path, load_solution
@@ -230,7 +231,7 @@ def write_analysis_page(results_dir, robots):
     return html_path
 
 
-def analyze_generation(folder, open_page=True, workers=None, best_count=None):
+def analyze_generation(folder, open_page=True, workers=None, best_count=None, random_count=None):
     results_dir = Path(folder).expanduser()
     if not results_dir.is_absolute():
         results_dir = Path.cwd() / results_dir
@@ -246,6 +247,9 @@ def analyze_generation(folder, open_page=True, workers=None, best_count=None):
     total_robots = len(robots)
     if best_count is not None:
         robots = robots[:best_count]
+    elif random_count is not None:
+        robots = random.sample(robots, k=min(random_count, total_robots))
+        robots.sort(key=lambda robot: robot["fitness"], reverse=True)
 
     ensure_gifs_exist(robots, workers=workers)
     html_path = write_analysis_page(results_dir, robots)
@@ -265,7 +269,14 @@ def parse_args():
         description="Generate one HTML page with every robot GIF in a generation folder."
     )
     parser.add_argument("folder", help='Generation folder, e.g. "results/Walker-v0_2026-04-29_17-28-20".')
-    parser.add_argument("--best", type=int, default=None, help="Only render and generate GIFs for the N best robots.")
+    selection = parser.add_mutually_exclusive_group()
+    selection.add_argument("--best", type=int, default=None, help="Only render and generate GIFs for the N best robots.")
+    selection.add_argument(
+        "--random",
+        type=int,
+        default=None,
+        help="Only render and generate GIFs for N randomly selected robots.",
+    )
     parser.add_argument("--no-open", action="store_true", help="Create the page without opening it.")
     parser.add_argument(
         "--workers",
@@ -280,6 +291,8 @@ if __name__ == "__main__":
     args = parse_args()
     if args.best is not None and args.best <= 0:
         raise SystemExit("--best must be a positive integer")
+    if args.random is not None and args.random <= 0:
+        raise SystemExit("--random must be a positive integer")
     if args.workers is not None and args.workers <= 0:
         raise SystemExit("--workers must be a positive integer")
     analyze_generation(
@@ -287,4 +300,5 @@ if __name__ == "__main__":
         open_page=not args.no_open,
         workers=args.workers,
         best_count=args.best,
+        random_count=args.random,
     )

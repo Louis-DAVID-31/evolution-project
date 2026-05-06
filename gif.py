@@ -297,6 +297,23 @@ def create_all_missing_gifs(workers=None):
     return created
 
 
+def delete_gifs(folder):
+    folder_path = Path(folder).expanduser()
+    if not folder_path.is_absolute():
+        folder_path = Path.cwd() / folder_path
+    folder_path = folder_path.resolve()
+
+    if not folder_path.is_dir():
+        raise NotADirectoryError(f"Folder not found: {folder_path}")
+
+    gif_paths = sorted(folder_path.rglob("*.gif"))
+    for gif_path in gif_paths:
+        gif_path.unlink()
+
+    print(f"Deleted {len(gif_paths)} GIF(s) from: {folder_path}")
+    return gif_paths
+
+
 def parse_args():
     parser = argparse.ArgumentParser(
         description="Generate a simulation GIF from an EvoGym solution JSON file."
@@ -306,6 +323,11 @@ def parse_args():
         "--all",
         action="store_true",
         help="Generate GIFs for every solution JSON in results/ that does not have one yet.",
+    )
+    parser.add_argument(
+        "--delete",
+        metavar="FOLDER",
+        help="Only delete every GIF file found recursively in the given folder.",
     )
     parser.add_argument(
         "--workers",
@@ -320,9 +342,13 @@ if __name__ == "__main__":
     args = parse_args()
     if args.workers is not None and args.workers <= 0:
         raise SystemExit("--workers must be a positive integer")
-    if args.all:
+    if args.delete and (args.all or args.solution_file):
+        raise SystemExit("--delete cannot be used with --all or a solution file")
+    if args.delete:
+        delete_gifs(args.delete)
+    elif args.all:
         create_all_missing_gifs(workers=args.workers)
     elif args.solution_file:
         create_gif(args.solution_file)
     else:
-        raise SystemExit("Usage: python gif.py <solution_file> or python gif.py --all")
+        raise SystemExit("Usage: python gif.py <solution_file>, python gif.py --all, or python gif.py --delete <folder>")
